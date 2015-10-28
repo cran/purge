@@ -5,9 +5,6 @@
 #' to remove the embedded data for portability, especially
 #' if the only required functionality is to predict on new data.
 #'
-#' @import lme4
-#' @import rpart
-#' @import randomForest
 #' @importFrom methods as
 #' @param model A fitted R model object
 #' @return A fitted R model object, purged of its training data,
@@ -168,5 +165,31 @@ purge.randomForest <- function(model) {
   model.copy$predicted <- c()
   model.copy$oob.times <- c()
   attr(model.copy$terms,".Environment") <- c()
+  return(model.copy)
+}
+
+#' @describeIn purge Purges a ranger model for classification, regression, or survival
+#' @export
+purge.ranger <- function(model) {
+  model.copy <- model
+  if (model.copy$treetype %in% c('Classification', 'Regression')) {
+    model.copy$predictions <- c()
+  }
+  if (model.copy$treetype == 'Survival') {
+    model.copy$chf <- c()
+    model.copy$survival <- c()
+  }
+  return(model.copy)
+}
+
+#' @describeIn purge Purges a coxph model
+#' @export
+purge.coxph <- function(model) {
+  model.copy <- model
+  model.copy$y <- c()
+  model.copy$residuals <- c()
+  model.copy$linear.predictors <- c()
+  attr(model.copy$terms,".Environment") <- c()
+  attr(model.copy$formula,".Environment") <- c()
   return(model.copy)
 }

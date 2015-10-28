@@ -1,9 +1,9 @@
-b19099be095f67fc70a3d4ef47955342 *DESCRIPTION
+ee0f280f383c600f1c3d45d0859f2dcf *DESCRIPTION
 07ed52cd001284027bf624a9663b6316 *LICENSE
-564d1d52a55b6a7d44bab0b881d43597 *NAMESPACE
-2c0e3bef4b0e7b7feb5124bd84d4419a *R/purge.R
+1f0d9277714d16af15ab68c561cd79b1 *NAMESPACE
+55f36390fb767f2a2ed767b3450ece9c *R/purge.R
 af2ed66ead96a69f53101d3933547558 *README.md
-8f48e880bfd2e3c5b8557b46335db69a *man/purge.Rd
-9d97c53ed0a8422e7d57529a1d55f722 *tests/purged.filesizes.R
+f293c35da5db10a65f163a9b0c900ef8 *man/purge.Rd
+3e13d59d3fd264857a8d2478c8e2c7c4 *tests/purged.filesizes.R
 7cf0815903c2537d0bee8b44ec3914a6 *tests/testthat.R
-db8198642abe95a891d407606648cc9a *tests/testthat/test.purge.R
+64a66de6f0c8b975d7b345c2a2628708 *tests/testthat/test.purge.R

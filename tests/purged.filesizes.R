@@ -81,6 +81,20 @@ inspect.randomForest.file.sizes <- function() {
   }
 }
 
+inspect.coxph.file.sizes <- function() {
+  ctr <- 0
+  for (sample.size in c(1000, 10000, 100000)) {
+    ctr <- ctr + 1
+    x <- rnorm(sample.size)
+    y.time <- abs(rnorm(sample.size))
+    y.status <- ifelse(runif(sample.size) > 0.5, 0, 1)
+    unpurged.model <- survival::coxph(survival::Surv(y.time, y.status) ~ x)
+    purged.model <- purge(unpurged.model)
+    saveRDS(unpurged.model, paste('unpurged.coxph', ctr, '.rds', sep=''))
+    saveRDS(purged.model, paste('purged.coxph', ctr, '.rds', sep=''))
+  }
+}
+
 run.all.inspect.file.sizes <- function() {
   inspect.lm.file.sizes()
   inspect.glm.file.sizes()
@@ -88,4 +102,5 @@ run.all.inspect.file.sizes <- function() {
   inspect.glmerMod.file.sizes()
   inspect.rpart.file.sizes()
   inspect.randomForest.file.sizes()
+  inspect.coxph.file.sizes()
 }
