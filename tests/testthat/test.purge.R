@@ -78,7 +78,7 @@ test_that("randomForest purge works correctly", {
     sample.size <- 1000
     x <- rnorm(sample.size)
     y <- x + rnorm(sample.size)
-    unpurged.model <- randomForest::randomForest(y ~ x, ntree=10)
+    unpurged.model <- randomForest::randomForest(y ~ x, ntree=11)
     purged.model <- purge(unpurged.model)
     test.new.data <- data.frame(x=1:10)
     expect_is(purged.model, 'randomForest')
@@ -86,15 +86,13 @@ test_that("randomForest purge works correctly", {
   }
 })
 
-test_that("ranger purge works correctly", {
+test_that("ranger classification purge works correctly", {
   if (requireNamespace('ranger', quietly=TRUE)) {
     sample.size <- 1000
     x <- rnorm(sample.size)
-
-    # test classification
     y <- as.factor(runif(sample.size) > 0.5)
     unpurged.model <- ranger::ranger(y ~ x, data.frame(x, y),
-                                     num.trees=10, write.forest=TRUE)
+                                     num.trees=11, write.forest=TRUE)
     purged.model <- purge(unpurged.model)
     test.new.data <- data.frame(x=1:10)
     expect_is(purged.model, 'ranger')
@@ -102,26 +100,38 @@ test_that("ranger purge works correctly", {
                       predict.method=function(ranger.model, test.data) {
                         return(predict(ranger.model, test.data)$predictions)
                       })
+  }
+})
 
-    # test regression
+test_that("ranger regression purge works correctly", {
+  if (requireNamespace('ranger', quietly=TRUE)) {
+    sample.size <- 1000
+    x <- rnorm(sample.size)
     y <- rnorm(sample.size)
     unpurged.model <- ranger::ranger(y ~ x, data.frame(x, y),
-                                     num.trees=10, write.forest=TRUE)
+                                     num.trees=11, write.forest=TRUE)
     purged.model <- purge(unpurged.model)
+    test.new.data <- data.frame(x=1:10)
     expect_is(purged.model, 'ranger')
     purge_test_helper(unpurged.model, purged.model, test.new.data,
                       predict.method=function(ranger.model, test.data) {
                         return(predict(ranger.model, test.data)$predictions)
                       })
+  }
+})
 
-    # test survival
+test_that("ranger survival purge works correctly", {
+  if (requireNamespace('ranger', quietly=TRUE)) {
+    sample.size <- 1000
+    x <- rnorm(sample.size)
     if (requireNamespace('survival', quietly=TRUE)) {
       y.time <- abs(rnorm(sample.size))
       y.status <- ifelse(runif(sample.size) > 0.5, 0, 1)
       unpurged.model <- ranger::ranger(survival::Surv(y.time, y.status) ~ x,
-                                       data.frame(x, y),
-                                       num.trees=10, write.forest=TRUE)
+                                       data.frame(x, y.time, y.status),
+                                       num.trees=11, write.forest=TRUE)
       purged.model <- purge(unpurged.model)
+      test.new.data <- data.frame(x=1:10)
       expect_is(purged.model, 'ranger')
       purge_test_helper(unpurged.model, purged.model, test.new.data,
                         predict.method=function(ranger.model, test.data) {

@@ -189,6 +189,7 @@ purge.coxph <- function(model) {
   model.copy$y <- c()
   model.copy$residuals <- c()
   model.copy$linear.predictors <- c()
+  model.copy$call <- call('round', 0.0)
   attr(model.copy$terms,".Environment") <- c()
   attr(model.copy$formula,".Environment") <- c()
   return(model.copy)

@@ -1,8 +1,8 @@
 Package: purge
 Type: Package
 Title: Purge Training Data from Models
-Version: 0.2.0
-Date: 2015-10-28
+Version: 0.2.1
+Date: 2015-10-29
 Authors@R: c(
     person("Marc", "Maier", email="mmaier@massmutual.com", role="cre"),
     person("Chaoqun", "Jia", email="cjia@massmutual.com", role="ctb"),
@@ -17,10 +17,10 @@ Imports: methods
 Suggests: testthat, survival, lme4 (>= 1.1-8), ranger, randomForest,
         rpart
 NeedsCompilation: no
-Packaged: 2015-10-28 20:51:37 UTC; mm90357
+Packaged: 2017-02-12 02:08:55 UTC; mm90357
 Author: Marc Maier [cre],
     Chaoqun Jia [ctb],
     MassMutual Advanced Analytics [aut] (http://datascience.massmutual.com)
-RoxygenNote: 5.0.0
+RoxygenNote: 6.0.1
 Repository: CRAN
-Date/Publication: 2015-10-28 22:36:15
+Date/Publication: 2017-02-12 08:31:10
